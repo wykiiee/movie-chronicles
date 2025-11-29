@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Rewind as ClockRewind } from 'lucide-react';
+import { Rewind as ClockRewind, ArrowRight } from 'lucide-react';
 import { useEntryContext } from '../../context/EntryContext';
 import MediaCard from '../media/MediaCard';
 
@@ -12,18 +12,19 @@ const RecentlyWatchedSection: React.FC = () => {
   }
 
   return (
-    <section className="bg-gray-800 rounded-lg p-6">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-semibold flex items-center">
-          <ClockRewind className="mr-2 h-5 w-5 text-green-400" />
+    <section className="card p-6">
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+          <ClockRewind className="h-6 w-6 text-accent-400" />
           Recently Watched
         </h2>
-        <Link to="/history" className="text-sm text-blue-400 hover:text-blue-300">
+        <Link to="/history" className="text-sm text-primary-400 hover:text-primary-300 flex items-center gap-1 transition-colors">
           View All
+          <ArrowRight className="h-4 w-4" />
         </Link>
       </div>
-      
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {recentlyWatched.map((entry) => (
           <MediaCard key={entry.id} media={entry} />
         ))}

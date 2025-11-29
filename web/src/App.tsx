@@ -11,7 +11,7 @@ import { EntryProvider } from './context/EntryContext';
 function App() {
 	return (
 		<EntryProvider>
-			<div className='min-h-screen bg-gray-900 text-gray-100'>
+			<div className='min-h-screen'>
 				<Routes>
 					<Route path='/' element={<Layout />}>
 						<Route index element={<Dashboard />} />

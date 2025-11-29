@@ -17,8 +17,10 @@
 	"author": "Hezron Nyamboga",
 	"license": "ISC",
 	"dependencies": {
-		"@libsql/client": "^0.15.9",
+		"@libsql/client": "^0.15.15",
+		"@types/better-sqlite3": "^7.6.13",
 		"bcrypt": "^6.0.0",
+		"better-sqlite3": "^12.4.6",
 		"cookie-parser": "^1.4.7",
 		"cors": "^2.8.5",
 		"csurf": "^1.11.0",

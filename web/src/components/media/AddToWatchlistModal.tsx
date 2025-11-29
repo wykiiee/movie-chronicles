@@ -6,7 +6,7 @@ import RatingStars from '../ui/RatingStars';
 interface AddToWatchlistModalProps {
   media: Movie | TvShow;
   onClose: () => void;
-  onAdd: () => void;
+  onAdd: (data: { status: WatchStatus; rating: number; dateWatched: string; notes: string; private: boolean }) => void;
 }
 
 const AddToWatchlistModal: React.FC<AddToWatchlistModalProps> = ({ media, onClose, onAdd }) => {
@@ -18,7 +18,13 @@ const AddToWatchlistModal: React.FC<AddToWatchlistModalProps> = ({ media, onClos
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onAdd();
+    onAdd({
+      status,
+      rating,
+      dateWatched: date,
+      notes,
+      private: isPrivate
+    });
   };
 
   return (
@@ -33,10 +39,10 @@ const AddToWatchlistModal: React.FC<AddToWatchlistModalProps> = ({ media, onClos
           </div>
 
           <div className="flex items-start gap-4 mb-6">
-            <img 
-              src={media.poster} 
-              alt={media.title} 
-              className="w-16 rounded" 
+            <img
+              src={media.poster}
+              alt={media.title}
+              className="w-16 rounded"
             />
             <div>
               <h3 className="font-medium">{media.title}</h3>

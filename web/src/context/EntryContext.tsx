@@ -26,15 +26,24 @@ interface EntryProviderProps {
 }
 
 export const EntryProvider: React.FC<EntryProviderProps> = ({ children }) => {
-  const [entries, setEntries] = useState<MediaEntry[]>([]);
-  
-  useEffect(() => {
-    // In a real app, this would fetch from an API
-    const fetchedEntries = mockGetEntries();
-    setEntries(fetchedEntries);
-  }, []);
+  const [entries, setEntries] = useState<MediaEntry[]>(() => {
+    const savedEntries = localStorage.getItem('MOVIE_DIARY_ENTRIES');
+    if (savedEntries) {
+      try {
+        return JSON.parse(savedEntries);
+      } catch (error) {
+        console.error('Failed to parse entries from local storage', error);
+        return [];
+      }
+    }
+    return mockGetEntries();
+  });
 
-  const watchlist = entries.filter(entry => 
+  useEffect(() => {
+    localStorage.setItem('MOVIE_DIARY_ENTRIES', JSON.stringify(entries));
+  }, [entries]);
+
+  const watchlist = entries.filter(entry =>
     entry.status === WatchStatus.PLANNING || entry.status === WatchStatus.PAUSED
   );
 
@@ -48,8 +57,8 @@ export const EntryProvider: React.FC<EntryProviderProps> = ({ children }) => {
   };
 
   const updateEntry = (id: string, updatedEntry: Partial<MediaEntry>) => {
-    setEntries(prevEntries => 
-      prevEntries.map(entry => 
+    setEntries(prevEntries =>
+      prevEntries.map(entry =>
         entry.id === id ? { ...entry, ...updatedEntry } : entry
       )
     );
